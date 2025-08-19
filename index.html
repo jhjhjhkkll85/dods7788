@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brigade Rouge - Boutique</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* فيديو الخلفية */
+  #background-video {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    filter: brightness(0.6);
+  }
+
+  /* طبقة الضباب */
+  #blur-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 1;
+  }
+
+  /* نافذة تسجيل الدخول شفافة جزئياً مع ضباب داخلي */
+  #login-box {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(28, 28, 28, 0.5);
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    z-index: 2;
+    width: 300px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  #login-box h2 {
+    margin-bottom: 20px;
+    color: #ff0000;
+  }
+
+  #login-box p {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  #login-box input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 8px;
+  }
+
+  #login-box button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    background: #4267B2; /* لون فيسبوك */
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  /* المحتوى الرئيسي */
+  #main-content {
+    display: none;
+    padding: 50px;
+    text-align: center;
+    color: #fff;
+    z-index: 2;
+    position: relative;
+  }
+
+  #products {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .product {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 20px;
+    width: 220px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    transition: transform 0.3s;
+  }
+
+  .product img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .product:hover {
+    transform: scale(1.05);
+  }
+
+  .price {
+    color: #ff0000;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  iframe {
+    margin-top: 40px;
+    border: none;
+    width: 80%;
+    height: 500px;
+    border-radius: 15px;
+  }
+</style>
+</head>
+<body>
+
+<!-- فيديو الخلفية -->
+<video autoplay muted loop id="background-video">
+  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
+  متصفحك لا يدعم الفيديو.
+</video>
+
+<!-- طبقة الضباب -->
+<div id="blur-overlay"></div>
+
+<!-- نافذة تسجيل الدخول -->
+<div id="login-box">
+  <h2>Connexion</h2>
+  <p>Ajoutez votre compte Facebook pour assurer votre propriété</p>
+  <input type="text" id="facebook" placeholder="Lien ou nom de votre compte Facebook">
+  <button onclick="login()">Se Connecter avec Facebook</button>
+</div>
+
+<!-- المحتوى الرئيسي -->
+<div id="main-content">
+  <h1>Bienvenue à Brigade Rouge</h1>
+  <div id="products">
+    <div class="product">
+      <img src="https://i.postimg.cc/5tq8pj3P/Screenshot-2025-08-18-06-33-16-83.jpg" alt="Produit 1">
+      <div class="price">15 Dinars</div>
+    </div>
+    <div class="product">
+      <img src="https://i.postimg.cc/Fz1P20CF/Screenshot-2025-08-19-01-46-57-46.jpg" alt="Produit 2">
+      <div class="price">15 Dinars</div>
+    </div>
+    <div class="product">
+      <img src="https://i.postimg.cc/dQXnhkSd/Screenshot-2025-08-19-01-45-52-18.jpg" alt="Produit 3">
+      <div class="price">15 Dinars</div>
+    </div>
+    <div class="product">
+      <img src="https://i.postimg.cc/MKQ5V6hL/Screenshot-2025-08-19-01-45-34-21.jpg" alt="Produit 4">
+      <div class="price">15 Dinars</div>
+    </div>
+  </div>
+
+  <!-- Google Form -->
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScdmDLZ9413J4vXO94dCu6AIwU-D9CKJIf-Rlu68JdiWy1lfA/viewform?embedded=true"></iframe>
+</div>
+
+<script>
+  function login() {
+    const facebook = document.getElementById('facebook').value;
+
+    if(facebook) {
+      document.getElementById('login-box').style.display = 'none';
+      document.getElementById('main-content').style.display = 'block';
+    } else {
+      alert('Veuillez entrer votre compte Facebook pour continuer');
+    }
+  }
+</script>
+
+</body>
+</html>
